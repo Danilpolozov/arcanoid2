@@ -44,7 +44,19 @@ class Ball:
 
 
 class Obstacle:
-	pass
+    def __init__(self, x, y, width, height, strength, color):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.color = color
+        self.strength = strength
+
+    def draw(self):
+        screen.draw.filled_rect(Rect((self.x - self.width / 2, self.y - self.height / 2), (self.width, self.height)),
+                                self.color)
+
+
 
 
 pgzrun.go()
