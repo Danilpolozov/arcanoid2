@@ -70,7 +70,47 @@ for row in range(3):
 
 
 def update(dt):
-	pass
+    ball.update(dt)
+    global heart_y
+    global bonus_y
+    global heart_x
+    global bonus_x
+    global lives
+    if Rect((ball.x - ball.radius, ball.y - ball.radius), (ball.radius * 2, ball.radius * 2)).colliderect(
+            Rect((paddle.x - paddle.width / 2, paddle.y - paddle.height / 2), (paddle.width, paddle.height))):
+        ball.speed_y = -ball.speed_y
+        ball.y = paddle.y - paddle.height / 2 - ball.radius
+    for obstacle in obstacles:
+        if (obstacle.x - obstacle.width / 2 < ball.x < obstacle.x + obstacle.width / 2 and
+                obstacle.y - obstacle.height / 2 < ball.y < obstacle.y + obstacle.height / 2):
+            obstacle.strength -= 1
+            if abs(ball.x - (obstacle.x - obstacle.width / 2)) < abs(ball.x - (obstacle.x + obstacle.width / 2)):
+                ball.speed_x = -ball.speed_x
+            else:
+                ball.speed_y = -ball.speed_y
+
+            if obstacle.strength == 0:
+                obstacles.remove(obstacle)
+    if random.randint(0, 300) == 1:
+        heart_y = 0
+        heart_x = random.randint(0, WIDTH)
+    if heart_y < HEIGHT:
+        heart_y += 1
+    if Rect((heart_x, heart_y), (20, 20)).colliderect(
+            Rect((paddle.x - paddle.width / 2, paddle.y - paddle.height / 2), (paddle.width, paddle.height))):
+        lives += 1
+        heart_y = HEIGHT
+    if random.randint(0, 200) == 2:
+        bonus_y = 0
+        bonus_x = random.randint(0, WIDTH)
+    if bonus_y < HEIGHT:
+        bonus_y += 1
+    if Rect((bonus_x, bonus_y), (20, 20)).colliderect(
+            Rect((paddle.x - paddle.width / 2, paddle.y - paddle.height / 2), (paddle.width, paddle.height))):
+        paddle.width *= 1.5
+        bonus_y = HEIGHT
+        clock.schedule_unique(lambda: setattr(paddle, "width", paddle.width / 1.5), 3.0)
+
 
 
 pgzrun.go()
