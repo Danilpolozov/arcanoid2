@@ -57,6 +57,16 @@ class Obstacle:
                                 self.color)
 
 
+obstacles = []
+for row in range(3):
+    for col in range(10):
+        x = col * 60 + 20
+        y = (row * 60) + 50
+        width = 50
+        height = 50
+        strength = random.randint(1, 3)
+        color = (255, 0, 0) if strength == 1 else (0, 255, 0) if strength == 2 else (0, 0, 255)
+        obstacles.append(Obstacle(x, y, width, height, strength, color))
 
 
 pgzrun.go()
