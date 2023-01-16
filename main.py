@@ -123,7 +123,25 @@ game_paused = False
 
 
 def draw():
-	pass
+    global game_paused
+    if not game_paused:
+        screen.clear()
+        paddle.draw()
+        ball.draw()
+        for obstacle in obstacles:
+            obstacle.draw()
+        if heart_y < HEIGHT:
+            screen.draw.text("+", (heart_x, heart_y), color=(255, 0, 0), fontsize=50)
+        if bonus_y < HEIGHT:
+            screen.draw.text("+", (bonus_x, bonus_y), color=(255, 255, 0), fontsize=50)
+        screen.draw.text(f'Lives: {lives if lives >= 0 else "-"}', (WIDTH / 2, 20), color=(255, 255, 255), fontsize=50)
+        if lives < 0:
+            screen.draw.text("GAME OVER", ((WIDTH / 2) - 80, (HEIGHT / 2) - 20), align="left", fontsize=60)
+            game_paused = True
+        if not obstacles:
+            screen.draw.text("YOU WIN", ((WIDTH / 2) - 40, (HEIGHT / 2) - 20), align="left", fontsize=60)
+            game_paused = True
+
 
 def on_mouse_move(pos):
     x, y = pos
