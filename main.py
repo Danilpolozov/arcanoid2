@@ -69,4 +69,8 @@ for row in range(3):
         obstacles.append(Obstacle(x, y, width, height, strength, color))
 
 
+def update(dt):
+	pass
+
+
 pgzrun.go()
