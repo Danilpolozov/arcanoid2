@@ -112,5 +112,22 @@ def update(dt):
         clock.schedule_unique(lambda: setattr(paddle, "width", paddle.width / 1.5), 3.0)
 
 
+paddle = Paddle()
+ball = Ball()
+heart_y = HEIGHT
+bonus_y = HEIGHT
+heart_x = 0
+bonus_x = 0
+lives = 3
+game_paused = False
+
+
+def draw():
+	pass
+
+def on_mouse_move(pos):
+    x, y = pos
+    paddle.x = x
+
 
 pgzrun.go()
